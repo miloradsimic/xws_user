@@ -1,0 +1,30 @@
+<div class="container pt-3">
+  <ngb-tabset type="pills" justify="justified">
+    <ngb-tab title="Inbox">
+      <ng-template ngbTabContent>
+        <div *ngFor="let message of receivedMessages" class="card my-4">
+          <div class="card-body">
+            <p class="card-text"><strong>From: {{message.sender.name}}</strong></p>
+            <p class="card-text"><strong>Date: {{message.time | date : "dd.MM.yyyy"}}</strong></p>
+            <p class="card-text"><strong>Content: </strong></p>
+            <p class="card-text">{{message.text}}</p>
+            <app-new-message [receiver]="message.sender" (messageSent)="handleMessageSent($event)"></app-new-message>
+          </div>
+        </div>
+      </ng-template>
+    </ngb-tab>
+    <ngb-tab title="Sent Messages">
+      <ng-template ngbTabContent>
+        <div *ngFor="let message of sentMessages" class="card my-4">
+          <div class="card-body">
+            <p class="card-text"><strong>To: {{message.receiver.name}}</strong></p>
+            <p class="card-text"><strong>Date: {{message.time | date : "dd.MM.yyyy"}}</strong></p>
+            <p class="card-text"><strong>Content: </strong></p>
+            <p class="card-text">{{message.text}}</p>
+            <app-new-message [receiver]="message.receiver" (messageSent)="handleMessageSent($event)"></app-new-message>
+          </div>
+        </div>
+      </ng-template>
+    </ngb-tab>
+  </ngb-tabset>
+</div>

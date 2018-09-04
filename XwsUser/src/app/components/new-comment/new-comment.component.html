@@ -1,0 +1,25 @@
+<ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">New Comment</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form role="form" #loginForm="ngForm">
+        <div class="form-group">
+          <div class="input-group">
+            <textarea 
+              class="form-control" id="text" name="text" 
+              placeholder="Comment ..." rows="10" required 
+              autofocus [(ngModel)]="comment.text"></textarea>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Post</button>
+    </div>
+  </ng-template>
+
+  <a class="btn btn-secondary my-2" (click)="open(content)">Comment</a>

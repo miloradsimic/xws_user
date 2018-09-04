@@ -1,0 +1,35 @@
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">New Message</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #loginForm="ngForm">
+      <div class="form-group">
+        <div class="input-group">
+          <h4>From: {{message.sender.name}}</h4>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="input-group">
+          <h4>To: {{message.receiver.name}}</h4>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="input-group">
+          <textarea 
+            id="text" class="form-control" placeholder="Comment ..." 
+            name="text" rows="10" autofocus required
+            [(ngModel)]="message.text"></textarea>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Send</button>
+  </div>
+</ng-template>
+
+<a class="btn text-light btn-secondary" (click)="open(content)">New Message</a>

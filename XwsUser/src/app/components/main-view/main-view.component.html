@@ -1,0 +1,163 @@
+<div class="container">
+  <pre>{{sql}}</pre>
+  <form role="form" [class.valid]="basicSearchQuery.to < basicSearchQuery.from" (ngSubmit)="basicSearch()" #basicSearchForm="ngForm">
+    <h2 class="text-secondary my-3">Search available accmmodation:</h2>
+    <div class="input-group input-group-lg mb-3">
+      <input 
+        type="text" id="address" name="address" 
+        class="form-control col-5" placeholder="Location" 
+        required [(ngModel)]="basicSearchQuery.address">
+      <input 
+        type="date" id="from" name="from" 
+        class="form-control col-3" placeholder="From"
+        required [(ngModel)]="basicSearchQuery.from">
+      <input 
+        type="date" id="to" name="to" 
+        class="form-control col-3" placeholder="To"
+        required [(ngModel)]="basicSearchQuery.to">
+      <div class="input-group-append">
+        <button class="btn btn-secondary" [disabled]="!basicSearchForm.valid"  type="submit">Search</button>
+      </div>
+    </div>
+    <p *ngIf="!basicSearchQuery.address && basicSearchForm.touched" class="text-danger my-3">Location is mandatory</p>
+    <p *ngIf="basicSearchQuery.to < basicSearchQuery.from" class="text-danger my-3">'To' date must be after 'From' date</p>
+  </form>
+  <div class="row">
+    <div class="col-3">
+      <div class="card my-1">
+        <div class="card-body text-justify d-flex flex-column">
+          <h4 class="text-secondary card-title">Type:</h4>
+          <form>
+            <div class="form-group form-check">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" name="remember"> Hotel
+              </label>
+            </div>
+            <div class="form-group form-check">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" name="remember"> Bed And Breakfast
+              </label>
+            </div>
+            <div class="form-group form-check">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" name="remember"> Apartment
+              </label>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="card my-1">
+        <div class="card-body text-justify d-flex flex-column">
+          <h4 class="card-title text-secondary">Class:</h4>
+          <form>
+            <div class="form-group form-check">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" name="remember"> Unclassified
+              </label>
+            </div>
+            <div class="form-group form-check">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" name="remember"> 1
+              </label>
+            </div>
+            <div class="form-group form-check">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" name="remember"> 2
+              </label>
+            </div>
+            <div class="form-group form-check">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" name="remember"> 3
+              </label>
+            </div>
+            <div class="form-group form-check">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" name="remember"> 4
+              </label>
+            </div>
+            <div class="form-group form-check">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" name="remember"> 5
+              </label>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="card my-1">
+        <div class="card-body text-justify d-flex flex-column">
+          <h4 class="card-title text-secondary">Additions:</h4>
+          <form>
+            <div class="form-group form-check">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" name="remember"> Has Parking
+              </label>
+            </div>
+            <div class="form-group form-check">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" name="remember"> Has Breakfast
+              </label>
+            </div>
+            <div class="form-group form-check">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" name="remember"> Has Half Board
+              </label>
+            </div>
+            <div class="form-group form-check">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" name="remember"> Has Full Board
+              </label>
+            </div>
+            <div class="form-group form-check">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" name="remember"> Has TV
+              </label>
+            </div>
+            <div class="form-group form-check">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" name="remember"> Has Kitchen
+              </label>
+            </div>
+            <div class="form-group form-check">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" name="remember"> Has Private Bathroom
+              </label>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="card my-1">
+        <div class="card-body text-justify d-flex flex-column">
+          <form>
+            <button type="submit" class="btn btn-secondary">Advanced search</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-9">
+      <div class="d-flex">
+        <h4 class="text-secondary mr-1">Sort by:</h4>
+        <div class="btn-group d-flex flex-grow-1">
+          <button type="button" class="btn btn-secondary border-dark w-100" (click)="sortByCategory()">Category 
+            <i *ngIf="sortByCategoryDirection == 1" class="fa fa-chevron-up"></i>
+            <i *ngIf="sortByCategoryDirection == -1" class="fa fa-chevron-down"></i>
+          </button>
+          <button type="button" class="btn btn-secondary border-dark w-100" (click)="sortByPrice()">Price 
+            <i *ngIf="sortByDailyPriceDirection == 1" class="fa fa-chevron-up"></i>
+            <i *ngIf="sortByDailyPriceDirection == -1" class="fa fa-chevron-down"></i>
+          </button>
+        </div>
+      </div>
+      <div *ngFor="let accommodation of accommodations" class="card my-1">
+        <img class="card-img-top" src="{{accommodation.imageUri}}" alt="Card image">
+        <div class="card-body text-justify flex-column">
+          <h4 class="card-title text-center">Address: {{accommodation.address}}</h4>
+          <p class="card-text text-right">Category: {{accommodation.category}}</p>
+          <p class="card-text text-right">Daily Price: {{accommodation.dailyPrice}}</p>
+          <p class="card-text">{{accommodation.description}}</p>
+          <a class="btn btn-primary" [routerLink]="['/accommodation', accommodation.id]">See Details</a>
+        </div>
+      </div>
+      <div>{{accommodations | json}}</div>
+    </div>
+  </div>
+</div>

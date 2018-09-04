@@ -1,0 +1,64 @@
+<div class="container">
+  <div class="card align-self-center">
+    <img class="card-img-top" src="{{accommodation.imageUri}}" alt="Card image">
+    <div class="card-body">
+      <h4 class="card-title">Address: {{accommodation.address}} <span class="float-right">Daily Price: {{accommodation.dailyPrice}}</span></h4>
+      <h4 class="card-title">Type: Hotel</h4>
+      <h4 class="card-title">Category: 4</h4>
+      <div class="d-flex">
+        <div class="w-50 text-justify">
+          <p class="card-text">{{accommodation.description}}</p>
+        </div>
+        <div class="w-50 pl-5">
+            <p *ngIf="accommodation.parking" class="card-text"><i class="fa fa-check"></i> Parking</p>
+            <p *ngIf="accommodation.wifi" class="card-text"><i class="fa fa-check"></i> WiFi</p>
+            <p *ngIf="accommodation.breakfast" class="card-text"><i class="fa fa-check"></i> Breakfast</p>
+            <p *ngIf="accommodation.halfBoard" class="card-text"><i class="fa fa-check"></i> Half Board</p>
+            <p *ngIf="accommodation.fullBoard" class="card-text"><i class="fa fa-check"></i> Full Board</p>
+            <p *ngIf="accommodation.tv" class="card-text"><i class="fa fa-check"></i> TV</p>
+            <p *ngIf="accommodation.privateBathroom" class="card-text"><i class="fa fa-check"></i> Private Bathroom</p>
+        </div>
+      </div>
+      <div class="card bg-light my-3">
+        <div class="card-body">
+          <form class="form-row" role="form" #reservationForm="ngForm">
+            <div class="form-group col-12">
+              <h4>Reservation</h4>
+            </div>
+            <div class="form-group col-6">
+              <label for="from">From:</label>
+              <input type="date" class="form-control" id="from" name="from" [(ngModel)]="reservationRequest.from">
+            </div>
+            <div class="form-group col-6">
+              <label for="to">To:</label>
+              <input type="date" class="form-control" id="to" name="to" [(ngModel)]="reservationRequest.to">
+            </div>
+            <div [hidden]="(reservationRequest.from < reservationRequest.to) || reservationForm.pristine" class="form-group col-12">
+              <p class="text-danger">The 'To' date must be after 'From' date</p>    
+            </div>
+            <div class="form-group col-3">
+              <button [disabled]="(!reservationRequest.from)||(!reservationRequest.to)||(reservationRequest.from > reservationRequest.to)" type="submit" class="btn btn-secondary" (click)="checkAvailability()">Check Availability</button>
+            </div>
+            <div class="form-group col-8"></div>
+            <div class="form-group col-1">
+              <button [disabled]="(!reservationRequest.from)||(!reservationRequest.to)||(reservationRequest.from > reservationRequest.to)" type="submit" class="btn btn-success" (click)="reserve()">Reserve</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <app-new-comment [accommodationId]="accommodation.id"></app-new-comment>
+      <div *ngFor="let comment of comments" class="card mb-1">
+        <div class="card-body">
+          <p class="card-title"><strong>{{comment.user.name}}</strong> <span class="float-right">{{comment.time | date
+              : 'dd.MM.yyyy'}}</span></p>
+          <p class="card-text">{{comment.text}}</p>
+        </div>
+      </div>
+      <div *ngIf="!comments.length" class="card mb-1">
+        <div class="card-body">
+          <p class="card-title text-center">Looks like there are no comments</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
